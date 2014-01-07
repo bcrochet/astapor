@@ -12,6 +12,13 @@ class quickstack::storage_backend::gluster(
 
   class { 'gluster::server': }
 
+  if ($::selinux != "false") {
+      selboolean{'virt_use_fusefs':
+          value => on,
+          persistent => true,
+      }
+  }
+
   class { 'quickstack::storage_backend::gluster::volume_cinder':
     cinder_gluster_path          => $cinder_gluster_path,
     cinder_gluster_peers         => $cinder_gluster_peers,

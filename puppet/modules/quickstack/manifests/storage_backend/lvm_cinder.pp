@@ -22,6 +22,13 @@ class quickstack::storage_backend::lvm_cinder(
   if $cinder_backend_gluster == true {
     class { 'gluster::client': }
 
+    if ($::selinux != "false") {
+      selboolean{'virt_use_fusefs':
+          value => on,
+          persistent => true,
+      }
+    }
+
     class { 'cinder::volume::glusterfs':
       glusterfs_mount_point_base => '/var/lib/cinder/volumes',
       glusterfs_shares           => suffix($cinder_gluster_peers, ":/${cinder_gluster_volume}")

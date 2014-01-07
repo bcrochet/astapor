@@ -16,9 +16,11 @@ class quickstack::compute_common (
   if str2bool($cinder_backend_gluster) == true {
     class { 'gluster::client': }
 
-    selboolean {'virt_use_fusefs':
-      persistent => true,
-      value      => on,
+    if ($::selinux != "false") {
+      selboolean{'virt_use_fusefs':
+          value => on,
+          persistent => true,
+      }
     }
   }
 

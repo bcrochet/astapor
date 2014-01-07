@@ -9,6 +9,13 @@ class quickstack::glance_storage (
   if $glance_backend_gluster == true {
     class { 'gluster::client': }
 
+    if ($::selinux != "false") {
+      selboolean{'virt_use_fusefs':
+          value => on,
+          persistent => true,
+      }
+    }
+
     mount { "/var/lib/glance":
       device  => suffix($glance_gluster_peers, ":${glance_gluster_volume}"),
       fstype  => "glusterfs",
