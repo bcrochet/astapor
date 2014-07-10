@@ -162,6 +162,7 @@ class quickstack::nova (
         enabled                              => true,
         manage_service                       => str2bool_i("$manage_service"),
         neutron_metadata_proxy_shared_secret => $neutron_metadata_proxy_secret,
+        metadata_listen                      => $bind_address,
       }
     } else {
 
@@ -177,6 +178,7 @@ class quickstack::nova (
         api_bind_address => $bind_address,
         auth_host        => $auth_host,
         manage_service   => str2bool_i("$manage_service"),
+        metadata_listen  => $bind_address,
       }
     }
     class {'::nova::scheduler':

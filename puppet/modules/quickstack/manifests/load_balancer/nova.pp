@@ -29,17 +29,17 @@ class quickstack::load_balancer::nova (
     backend_server_names => $backend_server_names,
   }
 
-  #  quickstack::load_balancer::proxy { 'nova-metadata':
-  #  addr                 => [ $frontend_pub_host,
-  #                            $frontend_priv_host,
-  #                            $frontend_admin_host ],
-  #  port                 => "$metadata_port",
-  #  mode                 => "$metadata_mode",
-  #  listen_options       => { 'option' => [ "$log" ] },
-  #  member_options       => [ 'check' ],
-  #  backend_server_addrs => $backend_server_addrs,
-  #  backend_server_names => $backend_server_names,
-  #}
+  quickstack::load_balancer::proxy { 'nova-metadata':
+    addr                 => [ $frontend_pub_host,
+                             $frontend_priv_host,
+                             $frontend_admin_host ],
+    port                 => "$metadata_port",
+    mode                 => "$metadata_mode",
+    listen_options       => { 'option' => [ "$log" ] },
+    member_options       => [ 'check' ],
+    backend_server_addrs => $backend_server_addrs,
+    backend_server_names => $backend_server_names,
+  }
 
   quickstack::load_balancer::proxy { 'nova-novncproxy':
     addr                 => [ $frontend_pub_host,

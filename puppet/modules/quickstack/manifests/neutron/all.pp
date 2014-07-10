@@ -159,7 +159,7 @@ class quickstack::neutron::all (
     auth_password => $neutron_user_password,
     shared_secret => $neutron_metadata_proxy_secret,
     auth_url      => "http://${auth_host}:35357/v2.0",
-    metadata_ip   => $neutron_priv_host,
+    metadata_ip   => $neutron_url,
   }
 
   include quickstack::neutron::notifications
